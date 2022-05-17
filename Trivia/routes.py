@@ -74,7 +74,11 @@ def user(username):
 # -------- Game ---------------------------------------------------------- #
 @app.route('/game')
 def game():
-    return render_template('game.html')
+    q1 = TrivaQuestion.get_questions()
+    for i in range(len(q1)):
+        q1[i] = q1[i].Questions
+    print(len(q1))
+    return render_template('game.html', questions=q1)
 # -------- testing ---------------------------------------------------------- #
 
 

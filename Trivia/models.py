@@ -1,6 +1,7 @@
 # coding: utf-8
 
 from datetime import datetime
+
 from Trivia import db, login_manager
 
 from flask_sqlalchemy import SQLAlchemy
@@ -10,6 +11,7 @@ from sqlalchemy.orm import sessionmaker
 from werkzeug.security import generate_password_hash, check_password_hash
 
 
+import random
 
 from contextlib import contextmanager
 
@@ -56,7 +58,7 @@ class TrivaQuestion(db.Model):
             return self.Questions
 
    
-        
+    @classmethod
     def get_questions(self, n:int= 10):
         """
         get_questions
@@ -73,7 +75,12 @@ class TrivaQuestion(db.Model):
         _type_
             _description_
         """
-        return self.query.limit(n).all()
+        
+        self.last_item = self.query.order_by(self.Question_ID.desc()).first().Question_ID
+
+        sample = random.sample(range(1, self.last_item), n)        
+        
+        return self.query.filter(self.Question_ID.in_(tuple(sample))).all()
        
 
 
