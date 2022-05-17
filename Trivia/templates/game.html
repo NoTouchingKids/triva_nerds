@@ -1,5 +1,17 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h1>Hi, {{ current_user.username }}!</h1>
+<h1>Hi, {{ current_user.username }}!</h1>
+
+<div>
+    <h1> This are the questions for today</h1>
+</div>
+<table>
+    {% for question in questions %}
+    <tr>
+        <td>{{ question}}</td>
+    </tr>
+    {% endfor %}
+</table>
+
 {% endblock %}
