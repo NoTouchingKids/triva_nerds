@@ -164,3 +164,4 @@ Sample/helpers.py.bak
 migrations/script.py.mako
 vscode/
 .vscode/launch.json
+Database.db
