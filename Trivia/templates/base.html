@@ -1,36 +1,42 @@
 <html>
     <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         {% if title %}
-        <title>{{ title }} - Trivia</title>
+        <title> {{ title }} </title>
         {% else %}
-        <title>Trivia</title>
+        <title> Default </title>
         {% endif %}
+        
         <meta charset="utf-8">
-        <link rel="stylesheet"  href="../static/css/style.css">
+
     </head>
     <body>
-        <div>
-            Trivia:
-            <a href="{{ url_for('index') }}">Home</a>
-            <a href="{{ url_for('game') }}">Game</a>
-            {% if current_user.is_anonymous %}
-            <a href="{{ url_for('login') }}">Login</a>
-            {% else %}
-            
-            <a href="{{ url_for('user', username=current_user.username) }}">Profile</a>
-            <a href="{{ url_for('logout') }}">Logout</a>
+        <nav>
+            <ul class="nav-links">
+                <li> <a href="{{ url_for('home') }}"> Home </a> </li>
+                {% if not g.user %}
+                <li> <a href="{{ url_for('login') }}"> Login </a> </li>
+                {% else %}
+                <li> <a href="{{ url_for('logout') }}"> Logout </a> </li>
+                {% endif %}
+            </ul>
+        </nav>
+
+
+        <div class="left"></div>
+        <section class="main">
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            <ul>
+                {% for message in messages %}
+                <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
             {% endif %}
-          </div>
-        <hr>
-        {% with messages = get_flashed_messages() %}
-        {% if messages %}
-        <ul>
-            {% for message in messages %}
-            <li>{{ message }}</li>
-            {% endfor %}
-        </ul>
-        {% endif %}
-        {% endwith %}
-        {% block content %}{% endblock %}
+            {% endwith %}
+                {% block content %}{% endblock %}
+        </section>
+        <div class="right"></div>
     </body>
+
 </html>

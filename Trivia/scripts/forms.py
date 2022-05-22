@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from flask_wtf import FlaskForm
-from wtforms import BooleanField, PasswordField, SubmitField, StringField, TextAreaField
+from wtforms import BooleanField, PasswordField, SubmitField, StringField, TextAreaField, FieldList, FormField
 from wtforms.validators import DataRequired, Email, EqualTo, Length
 from wtforms import ValidationError
 from Trivia.models import User
@@ -16,7 +16,7 @@ class LoginForm(FlaskForm):
     def __init__(self, *args, **kwargs):
         super(LoginForm, self).__init__(*args, **kwargs)
 
-    def validate(self):
+    def validate_login(self):
         initial_validation = super(LoginForm, self).validate()
         if not initial_validation:
             return False
@@ -24,7 +24,7 @@ class LoginForm(FlaskForm):
         if not user:
             self.username.errors.append('Unknown username')
             return False
-        if not user.verify_password(self.password.data):
+        if not user.check_password(self.password.data):
             self.password.errors.append('Invalid password')
             return False
         return True
@@ -40,12 +40,12 @@ class RegisterForm(FlaskForm):
     confirm = PasswordField('Verify password',
                             validators=[DataRequired(), EqualTo('password',
                                                                 message='Passwords must match')])
-    submit = SubmitField('Log In')
+    submit = SubmitField('Sign Up')
 
     def __init__(self, *args, **kwargs):
         super(RegisterForm, self).__init__(*args, **kwargs)
 
-    def validate(self):
+    def validate_form(self):
         initial_validation = super(RegisterForm, self).validate()
         print(initial_validation)
         if not initial_validation:
@@ -75,3 +75,13 @@ class EditProfileForm(FlaskForm):
             user = User.query.filter_by(username=self.username.data).first()
             if user is not None:
                 raise ValidationError('Please use a different username.')
+            
+            
+class QuestionForm(FlaskForm):
+    anwser = StringField('Awnser',validators=[DataRequired()])
+    submit = SubmitField('Next')
+    
+    def __init__(self, *args, **kwargs):
+        super(QuestionForm, self).__init__(*args, **kwargs)
+    
+    
