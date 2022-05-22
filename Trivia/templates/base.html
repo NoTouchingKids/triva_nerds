@@ -6,37 +6,34 @@
         {% else %}
         <title> Default </title>
         {% endif %}
-        
-        <meta charset="utf-8">
 
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="{{ url_for('static',
+            filename='css/style.css') }}">
     </head>
     <body>
-        <nav>
+        <nav class="nav-bar">
             <ul class="nav-links">
                 <li> <a href="{{ url_for('home') }}"> Home </a> </li>
                 {% if not g.user %}
-                <li> <a href="{{ url_for('login') }}"> Login </a> </li>
+                <li style="float:right"> <a href="{{ url_for('login') }}"> Login </a> </li>
                 {% else %}
-                <li> <a href="{{ url_for('logout') }}"> Logout </a> </li>
+                <li style="float:right"> <a href="{{ url_for('logout') }}"> Logout </a> </li>
                 {% endif %}
             </ul>
         </nav>
-
-
-        <div class="left"></div>
-        <section class="main">
-            {% with messages = get_flashed_messages() %}
-            {% if messages %}
-            <ul>
-                {% for message in messages %}
-                <li>{{ message }}</li>
-                {% endfor %}
-            </ul>
-            {% endif %}
-            {% endwith %}
+            <div>
+                {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                <ul>
+                    {% for message in messages %}
+                    <li>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+                {% endwith %}
                 {% block content %}{% endblock %}
-        </section>
-        <div class="right"></div>
+            </div>
     </body>
 
 </html>

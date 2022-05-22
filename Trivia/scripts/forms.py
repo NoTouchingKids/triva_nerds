@@ -16,7 +16,7 @@ class LoginForm(FlaskForm):
     def __init__(self, *args, **kwargs):
         super(LoginForm, self).__init__(*args, **kwargs)
 
-    def validate_login(self):
+    def validate(self):
         initial_validation = super(LoginForm, self).validate()
         if not initial_validation:
             return False
@@ -45,9 +45,8 @@ class RegisterForm(FlaskForm):
     def __init__(self, *args, **kwargs):
         super(RegisterForm, self).__init__(*args, **kwargs)
 
-    def validate_form(self):
+    def validate(self):
         initial_validation = super(RegisterForm, self).validate()
-        print(initial_validation)
         if not initial_validation:
             return False
         user = User.query.filter_by(username=self.username.data).first()
@@ -83,5 +82,3 @@ class QuestionForm(FlaskForm):
     
     def __init__(self, *args, **kwargs):
         super(QuestionForm, self).__init__(*args, **kwargs)
-    
-    

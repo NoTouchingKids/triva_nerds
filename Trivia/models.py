@@ -1,6 +1,7 @@
 # coding: utf-8
 
 from datetime import datetime
+from sqlalchemy import func, and_
 from Trivia import db, login_manager
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -21,11 +22,10 @@ class DailyQusetion(db.Model):
         'User', primaryjoin='DailyQusetion.User_fk == User.Id', backref='daily_qusetions')
 
     @classmethod
-    def get_daily_qusetion(self,user_id):
-        return self.query.filter_by(Date=datetime.today().date(),User_fk=user_id).all()
-    
-    
-    
+    def get_daily_qusetion(self, user_id):
+        return self.query.filter_by(Date=datetime.today().date(), User_fk=user_id).limit(10).all()
+
+
 class Score(db.Model):
     __tablename__ = 'Score'
 
@@ -37,13 +37,23 @@ class Score(db.Model):
     User = db.relationship(
         'User', primaryjoin='Score.Id_fk == User.Id', backref='scores')
 
-    def get_score(self,user_id):
-        return self.query.filter_by(score_date=datetime.today().date(),Id_fk=user_id).first()
-    
+    def get_score(self, user_id):
+        return self.query.filter_by(score_date=datetime.today().date(), Id_fk=user_id).first()
+
     @classmethod
     def get_today_highest(self):
         return self.query.filter_by(score_date=datetime.today().date()).first()
-    
+
+    @classmethod
+    def get_top(self):  # .limit(10)
+
+        leaderborad = db.session.query(
+            User.username,
+            func.max(Score.score)
+        ).join(Score).group_by(Score.Id_fk).order_by(Score.score.desc()).all()
+        return leaderborad
+
+
 class TrivaQuestion(db.Model):
     __tablename__ = 'TrivaQuestions'
 
@@ -51,50 +61,31 @@ class TrivaQuestion(db.Model):
     Questions = db.Column(db.Text, nullable=False)
     Anwser = db.Column(db.Text, nullable=False)
 
-
-    
     def __rep__(self):
         return f" <ID {self.Question_ID}, Questions {self.Questions} , Awsers{self.Awsers}>"
-    
-    def question(self,id):
-        return self.query.filter_by(Question_ID= id).first()
 
-   
+    def question(self, id):
+        return self.query.filter_by(Question_ID=id).first()
+
     @classmethod
-    def get_questions(self, n:int= 10):
-        """
-        get_questions
+    def get_questions(self, n: int = 10):
+        self.last_item = self.query.order_by(
+            self.Question_ID.desc()).first().Question_ID
 
-        Return n number of question from db
+        sample = random.sample(range(1, self.last_item), n)
 
-        Parameters
-        ----------
-        n : int
-            _description_
-
-        Returns
-        -------
-        _type_
-            _description_
-        """
-        
-        self.last_item = self.query.order_by(self.Question_ID.desc()).first().Question_ID
-
-        sample = random.sample(range(1, self.last_item), n)        
-        
         return self.query.filter(self.Question_ID.in_(tuple(sample))).all()
-    
-    def check_anwser(self ,anwser):
+
+    def check_anwser(self, anwser):
         if anwser is None or anwser == "":
             return False
         if self.Anwser == anwser:
-          return True
+            return True
         else:
-          return False
+            return False
 
 
-
-class User(UserMixin,db.Model):
+class User(UserMixin, db.Model):
     __tablename__ = 'User'
 
     Id = db.Column(db.Integer, primary_key=True)
@@ -105,12 +96,12 @@ class User(UserMixin,db.Model):
     last_seen = db.Column(db.DateTime, default=datetime.utcnow)
     marks = db.Column(db.Integer, index=True)
 
-    
     def __repr__(self):
         return f'<User({self.username})>'
-    
-    def get_by_id(self,id):
+
+    def get_by_id(self, id):
         return self.query.filter_by(Id=id).first()
+
     @property
     def password(self):
         raise AttributeError('password is not a readable attribute')
@@ -121,16 +112,15 @@ class User(UserMixin,db.Model):
 
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
-    
+
     @classmethod
-    def get_user(self,username):
+    def get_user(self, username):
         return self.query.filter_by(username=username).first()
-    
+
     def commits(self, user):
         db.session.add(user)
         db.session.commit()
-    
-    
+
 
 @login_manager.user_loader
 def load_user(Id):

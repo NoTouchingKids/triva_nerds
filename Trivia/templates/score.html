@@ -1,15 +1,44 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <div class="score-main">
-            <div class="highest-score">
-                <div>Highest Score: {{ high_score.score }} by </div> <div class="high-score-name">{{ H_user }}</div>
-            </div>
-            <h1 class="score-head">Your Score</h1>
-            <div class="score-circle">
-                <h1>{{ score }}</h1>
-            </div>
-            <h1 class="congrats-cls">Congratulations! <i class="fas fa-glass-cheers"></i></h1>
+<div class="flex-container">
+    <div class="question padding-horizontal--100 width: 100%">
+
+        <h2 class="score-head">Your Score is </h1>
+        <div class="score-circle">
+            <h3>{{ score }}</h3>
+        </div>
+        <h3 class="congrats-cls">Congratulations! <i class="fas
+                fa-glass-cheers"></i></h1>
+
+
+        <div class="highest-score">
+            Highest Score: {{ high_today.score }} by <p class="high-score-name">{{
+                H_user }}</p>
+        </div>
+
+        <div>
+            your best is <div>{{user_best}}</div>
+        </div>
+
+        <div class="padding-bottom--24">
+            <table id="leaderborad">
+                <tr> 
+                    <th>rank</th>
+                    <th>score</th>
+                    <th>Username</th>
+                </tr>
+                {% for item in leaderborad %}
+                <tr>
+                    <td>{{loop.index}}</td>
+                    <td>{{ item[1] }}</td>
+                    <td>{{ item[0] }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+
     </div>
-    <!-- <p>Your Final Score is {{ g.user.marks }}. Congratulations <3</p> -->
+
+</div>
 {% endblock %}

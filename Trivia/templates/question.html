@@ -2,22 +2,25 @@
 
 
 {% block content %}
-<div class="ques-div">
-    <form method="post" novalidate>
-        <h2 class="qnum">Question {{qid}}</h2>
-        <div class="dotted-spaced"></div>
-        <hr>
-        <h1 class="ques-heading">{{q.Questions}}</h1>
-        <br>
-        <h1 class="ques-heading">{{q.Anwser}}</h1>
-        <div class="options-div">
-            {{ form.anwser(class="list-unstyled") }}
-        </div>
-        {{ form.submit(class="btn btn-primary btn-lg sub-btn") }}
-    </form>
-    <span class="check-circle">
-        <i class="fas fa-check-circle"></i>
-    </span>
-</div>
+<div class="flex-container">
+    <div class="question padding-horizontal--100 width: 100%">
+        <form method="post" novalidate>
+            <p class="">Question {{qid}}</p>
+            <div class="dotted-spaced"></div>
+            <hr>
+            <div>
+                <h3>{{q.Questions}}</h3>
+            </div>
+            <br>
+            <!-- <h1 class="field padding-bottom--24">{{q.Anwser}}</h1> -->
+            <div class="field padding-bottom--24">
+                {{ form.anwser(class="list-unstyled") }}
+            </div>
+            <div class="field">
+                {{ form.submit(class="btn btn-primary btn-lg sub-btn") }}
+            </div>
+        </form>
 
+    </div>
+</div>
 {% endblock %}
