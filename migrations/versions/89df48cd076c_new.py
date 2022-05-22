@@ -1,8 +1,8 @@
-"""empty message
+"""new
 
-Revision ID: b5e79e1fec1d
+Revision ID: 89df48cd076c
 Revises: 
-Create Date: 2022-05-11 10:01:48.030373
+Create Date: 2022-05-22 22:38:23.576598
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'b5e79e1fec1d'
+revision = '89df48cd076c'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -21,7 +21,7 @@ def upgrade():
     op.create_table('TrivaQuestions',
     sa.Column('Question_ID', sa.Integer(), nullable=False),
     sa.Column('Questions', sa.Text(), nullable=False),
-    sa.Column('Awsers', sa.Text(), nullable=False),
+    sa.Column('Anwser', sa.Text(), nullable=False),
     sa.PrimaryKeyConstraint('Question_ID')
     )
     op.create_table('User',
@@ -29,16 +29,20 @@ def upgrade():
     sa.Column('username', sa.String(length=64), nullable=True),
     sa.Column('email', sa.String(length=120), nullable=True),
     sa.Column('password_hash', sa.String(length=128), nullable=True),
+    sa.Column('about_me', sa.String(length=140), nullable=True),
+    sa.Column('last_seen', sa.DateTime(), nullable=True),
+    sa.Column('marks', sa.Integer(), nullable=True),
     sa.PrimaryKeyConstraint('Id')
     )
     op.create_index(op.f('ix_User_email'), 'User', ['email'], unique=True)
+    op.create_index(op.f('ix_User_marks'), 'User', ['marks'], unique=False)
     op.create_index(op.f('ix_User_username'), 'User', ['username'], unique=True)
     op.create_table('DailyQusetion',
     sa.Column('Question_served', sa.Integer(), nullable=False),
     sa.Column('Date', sa.Date(), nullable=True),
     sa.Column('User_fk', sa.Integer(), nullable=True),
-    sa.Column('Q_if_fk', sa.Integer(), nullable=True),
-    sa.ForeignKeyConstraint(['Q_if_fk'], ['TrivaQuestions.Question_ID'], ),
+    sa.Column('Q_id_fk', sa.Integer(), nullable=True),
+    sa.ForeignKeyConstraint(['Q_id_fk'], ['TrivaQuestions.Question_ID'], ),
     sa.ForeignKeyConstraint(['User_fk'], ['User.Id'], ),
     sa.PrimaryKeyConstraint('Question_served')
     )
@@ -58,6 +62,7 @@ def downgrade():
     op.drop_table('Score')
     op.drop_table('DailyQusetion')
     op.drop_index(op.f('ix_User_username'), table_name='User')
+    op.drop_index(op.f('ix_User_marks'), table_name='User')
     op.drop_index(op.f('ix_User_email'), table_name='User')
     op.drop_table('User')
     op.drop_table('TrivaQuestions')

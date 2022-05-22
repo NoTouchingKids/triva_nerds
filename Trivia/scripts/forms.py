@@ -1,9 +1,8 @@
-# -*- coding: utf-8 -*-
 from flask_wtf import FlaskForm
-from wtforms import BooleanField, PasswordField, SubmitField, StringField, TextAreaField, FieldList, FormField
-from wtforms.validators import DataRequired, Email, EqualTo, Length
-from wtforms import ValidationError
 from Trivia.models import User
+from wtforms import (BooleanField, FieldList, FormField, PasswordField,
+                     StringField, SubmitField, TextAreaField, ValidationError)
+from wtforms.validators import DataRequired, Email, EqualTo, Length
 
 
 class LoginForm(FlaskForm):
@@ -18,12 +17,15 @@ class LoginForm(FlaskForm):
 
     def validate(self):
         initial_validation = super(LoginForm, self).validate()
+        #check it is filled out or not 
         if not initial_validation:
             return False
         user = User.query.filter_by(username=self.username.data).first()
+        # user exist 
         if not user:
             self.username.errors.append('Unknown username')
             return False
+        # check password
         if not user.check_password(self.password.data):
             self.password.errors.append('Invalid password')
             return False
@@ -47,17 +49,21 @@ class RegisterForm(FlaskForm):
 
     def validate(self):
         initial_validation = super(RegisterForm, self).validate()
+        #check it is filled out or not 
         if not initial_validation:
             return False
         user = User.query.filter_by(username=self.username.data).first()
+        # check for Username already registered
         if user:
             self.username.errors.append("Username already registered")
             return False
         user = User.query.filter_by(email=self.email.data).first()
+        # check for email already registered 
         if user:
             self.email.errors.append("Email already registered")
             return False
         return True
+
 
 class EditProfileForm(FlaskForm):
     username = StringField('Username',
@@ -70,15 +76,16 @@ class EditProfileForm(FlaskForm):
         self.original_username = original_username
 
     def validate_username(self, username):
+        # to prevent duplicate username
         if username.data != self.original_username:
             user = User.query.filter_by(username=self.username.data).first()
             if user is not None:
                 raise ValidationError('Please use a different username.')
-            
-            
+
+
 class QuestionForm(FlaskForm):
-    anwser = StringField('Awnser',validators=[DataRequired()])
+    anwser = StringField('Awnser', validators=[DataRequired()])
     submit = SubmitField('Next')
-    
+
     def __init__(self, *args, **kwargs):
         super(QuestionForm, self).__init__(*args, **kwargs)
