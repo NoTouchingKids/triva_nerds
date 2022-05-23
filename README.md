@@ -4,8 +4,8 @@
 
 <br />
 <div align="center">
-  <a href="https://github.com/NoTouchingKids/triva_nerds/blob/ff4947e04ffa7bdb7f568eca5985707805d74fdf/Reasource/Home Page.png">
-    <img src="images/logo.png" alt="Logo">
+  <a href="">
+    <img src="https://github.com/NoTouchingKids/triva_nerds/blob/ff4947e04ffa7bdb7f568eca5985707805d74fdf/Reasource/Home Page.png" alt="Logo">
   </a>
 
   <h3 align="center">Trivia</h3>
