@@ -1,27 +1,7 @@
-# Project 1
+# Project Trivia quiz
 
 <div id="top"></div>
-<!--
-*** Thanks for checking out the Best-README-Template. If you have a suggestion
-*** that would make this better, please fork the repo and create a pull request
-*** or simply open an issue with the tag "enhancement".
-*** Don't forget to give the project a star!
-*** Thanks again! Now go create something AMAZING! :D
--->
 
-
-
-<!-- PROJECT SHIELDS -->
-<!--
-*** I'm using markdown "reference style" links for readability.
-*** Reference links are enclosed in brackets [ ] instead of parentheses ( ).
-*** See the bottom of this document for the declaration of the reference variables
-*** for contributors-url, forks-url, etc. This is an optional, concise syntax you may use.
-*** https://www.markdownguide.org/basic-syntax/#reference-style-links
--->
-
-
-<!-- PROJECT LOGO -->
 <br />
 <div align="center">
   <a href="https://github.com/NoTouchingKids/triva_nerds/blob/ff4947e04ffa7bdb7f568eca5985707805d74fdf/Reasource/Home Page.png">
@@ -66,7 +46,10 @@
 
 ## About The Project
 
-Here's a blank template to get started: To avoid retyping too much info. Do a search and replace with your text editor for the following: `github_username`, `Trivia`,`Trivia`
+This was a group project assigned to student of CTIS 3401.
+The Idea was to create a web site that dynamic assigned the user with set of Trivia question which the user was supposed to anwser.
+The applaction trak user's progress and assign a socre depanting on how the user has performed. 
+And the score is displayed on the leaderboard and allow user to compaire themself againt other.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -82,9 +65,23 @@ Here's a blank template to get started: To avoid retyping too much info. Do a se
 
 
 
-<!-- GETTING STARTED -->
 ## Getting Started
 
+Download the repository. then create a python viurtual enviroment and install dependency.
+
+### Some usefull commands for admin 
+* For adding Trivia question to database
+   ```sh
+   flask Insert_Questions
+   ```
+* For adding smaple score to database
+   ```sh
+   flask Insert_Score
+   ```
+* For adding sample user to database
+   ```sh
+   flask Insert_Users
+   ```
 
 
 
@@ -146,7 +143,7 @@ This are all included reqiment.txt
    ```
 6. add some question to database before
    ```sh
-   pip install -r requirements.txt
+   flask Insert_Questions
    ```
 
 <p align="right">(<a href="#top">back to top</a>)</p>
@@ -179,3 +176,13 @@ This are all included reqiment.txt
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 
+<!-- ROADMAP -->
+## Roadmap
+
+- [x] Add Sample data
+- [x] Add Admin command 
+- [ ] Add REST authantication
+- [ ] Add REST json responce handling for questions
+- [ ] Fix data dupication on user fail to register
+
+<p align="right">(<a href="#top">back to top</a>)</p>
