@@ -24,29 +24,24 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/github_username/Trivia">
-    <img src="images/logo.png" alt="Logo" width="80" height="80">
+  <a href="https://github.com/NoTouchingKids/triva_nerds/blob/ff4947e04ffa7bdb7f568eca5985707805d74fdf/Reasource/Home Page.png">
+    <img src="images/logo.png" alt="Logo">
   </a>
 
-<h3 align="center">Trivia</h3>
+  <h3 align="center">Trivia</h3>
 
   <p align="center">
     Group Projet For CITS 3403
     <br />
     <a href="https://github.com/github_username/Trivia"><strong>Explore the docs »</strong></a>
     <br />
-    <br />
-    <a href="https://github.com/github_username/Trivia">View Demo</a>
-    ·
     <a href="https://github.com/github_username/Trivia/issues">Report Bug</a>
-    ·
     <a href="https://github.com/github_username/Trivia/issues">Request Feature</a>
   </p>
 </div>
 
 
 
-<!-- TABLE OF CONTENTS -->
 <details>
   <summary>Table of Contents</summary>
   <ol>
@@ -64,20 +59,12 @@
       </ul>
     </li>
     <li><a href="#usage">Usage</a></li>
-    <li><a href="#roadmap">Roadmap</a></li>
-    <li><a href="#contributing">Contributing</a></li>
-    <li><a href="#license">License</a></li>
-    <li><a href="#contact">Contact</a></li>
-    <li><a href="#acknowledgments">Acknowledgments</a></li>
   </ol>
 </details>
 
 
 
-<!-- ABOUT THE PROJECT -->
 ## About The Project
-
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
 
 Here's a blank template to get started: To avoid retyping too much info. Do a search and replace with your text editor for the following: `github_username`, `Trivia`,`Trivia`
 
@@ -140,6 +127,7 @@ This are all included reqiment.txt
 ### Installation
 
 1. get python 3.8 or equalent (flask is most stable on 3.8)
+
 2. Clone the repo
    ```sh
    git clone https://github.com/NoTouchingKids/triva_nerds.git
@@ -160,26 +148,34 @@ This are all included reqiment.txt
    ```sh
    pip install -r requirements.txt
    ```
-7. run flask for bash
+
+<p align="right">(<a href="#top">back to top</a>)</p>
+
+
+## Usage
+
+1. run flask for bash
+   ```sh
+   cd triva_nerds/
+   ```
+
+2. run flask for bash
    ```sh
    export FLASK_APP=app
    flask run
    ```
-7. run flask for windows
+
+2. run flask for windows
    ```sh
    set FLASK_APP=app
    flask run
    ```
 
+3. Go to the localhost url on port 5000
+   ```sh
+   Running on http://127.0.0.1:5000
+   ```
+   
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 
-
-<!-- USAGE EXAMPLES -->
-## Usage
-
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
-
-_For more examples, please refer to the [Documentation](https://example.com)_
-
-<p align="right">(<a href="#top">back to top</a>)</p>
